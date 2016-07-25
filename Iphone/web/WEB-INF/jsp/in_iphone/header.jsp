@@ -72,7 +72,7 @@
                 
                     
                 <form action="admin.htm"  id="login">                    
-                        <input id="username" type="text" placeholder="Логин" autofocus required/>   
+                        <input id="username" name="username" type="text" placeholder="Логин" autofocus required/>   
                         <input id="password" type="password" placeholder="Пароль" required>
                         <input type="submit"  value="Вход">
                 </form>

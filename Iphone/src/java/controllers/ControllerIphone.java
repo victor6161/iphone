@@ -1,7 +1,12 @@
 package controllers;
 
+import java.awt.FileDialog;
+import java.awt.Frame;
+import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.JFrame;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import phone.comparephone.CompareCart;
+import phone.iphone.DB;
 import phone.iphone.Iphone;
 import phone.iphone.IphoneJDBCTemplate;
 
@@ -26,7 +32,7 @@ public class ControllerIphone {
         ModelAndView mv = new ModelAndView("index_iphone");
 
 //     List<Hmc> listHmc = hmcJDBCTemplate.listHmc();
-////        printInFile(listHmc.toString());
+//        printInFile(listHmc.toString());
 //        mv.addObject("listHmc", listHmc);
         session.setAttribute("page", "index");
 
@@ -99,12 +105,32 @@ public class ControllerIphone {
         }
         return "redirect:/" + page + ".htm";
     }
-
+/*
    @RequestMapping("/admin")
     public String main(){
+        
         return "admin";
+        
+    }*/
+    @RequestMapping("/admin")
+    public ModelAndView loadTable(HttpServletRequest request) {
+        if(request.getParameter("username").equals("admin")){
+        ModelAndView mv = new ModelAndView("/admin"); 
+        List<Iphone> listIphone = iphoneJDBCTemplate.getListIphone();
+        mv.addObject("objects",listIphone);
+        return mv;}
+        else return new ModelAndView("/index_iphone");
+}
+    @RequestMapping(value="/admin/find")
+    public void viewFile(){
+        FileDialog fd = new FileDialog(new JFrame(), "Choose a file", FileDialog.LOAD);
+        fd.setDirectory("C:\\");
+        //fd.setFile("*.xls");
+        fd.setVisible(true);
+        String filename = fd.getFile();
+    }
     
-    }/*
+    /*
     @RequestMapping(value="/admin",method=RequestMethod.POST)
     public ModelAndView admin(@ModelAttribute User user){
        ModelAndView modelAndView=new ModelAndView();

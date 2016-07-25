@@ -41,8 +41,13 @@ public class Iphone {
     String photo1;
     String photo2;
     String photo3;
+     public Iphone() {
+     
+    }
 
-    public Iphone() {
+    public Iphone(int id,String model) {
+        this.id=id;
+        this.model=model;
     }
 
     public Iphone(String model, String manufacturer, int year, String type, String os, int display_size, String display_resolution, int ram_memory, int flash_memory, String sim_several, String camera, int matrix_points, String design_case, String material, String color, String sim_format, String dimensions, int weight, String battery_type, int battery_capacity, String battery_removable, int time_talk, int time_out, int price, String description, String photo1, String photo2, String photo3) {

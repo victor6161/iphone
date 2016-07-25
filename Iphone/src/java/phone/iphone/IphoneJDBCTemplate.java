@@ -5,7 +5,10 @@
  */
 package phone.iphone;
 
+
+import java.util.ArrayList;
 import java.util.List;
+
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -18,10 +21,13 @@ public class IphoneJDBCTemplate implements IphoneDAO {
 
     private DataSource dataSource;
     private NamedParameterJdbcTemplate jdbcTemplateObject;
-
+    
     @Override
     public List<Iphone> getListIphone() {
-        List<Iphone> listIphone = jdbcTemplateObject.query("select * from iphone", new IphoneMapper());
+        
+       List<Iphone> listIphone = jdbcTemplateObject.query("select * from iphone", new IphoneMapper());
+     // List<Iphone> listIphone=new ArrayList<>();
+     // listIphone.add(new Iphone());
         return listIphone;
     }
 
@@ -36,5 +42,4 @@ public class IphoneJDBCTemplate implements IphoneDAO {
         this.dataSource = dataSource;
         this.jdbcTemplateObject = new NamedParameterJdbcTemplate(dataSource);
     }
-
 }
