@@ -2,8 +2,14 @@ package controllers;
 
 import java.awt.FileDialog;
 import java.awt.Frame;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.swing.JFrame;
@@ -11,15 +17,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import phone.comparephone.CompareCart;
 import phone.iphone.DB;
 import phone.iphone.Iphone;
 import phone.iphone.IphoneJDBCTemplate;
-
 
 @Controller
 public class ControllerIphone {
@@ -105,7 +113,8 @@ public class ControllerIphone {
         }
         return "redirect:/" + page + ".htm";
     }
-/*
+
+    /*
    @RequestMapping("/admin")
     public String main(){
         
@@ -114,22 +123,51 @@ public class ControllerIphone {
     }*/
     @RequestMapping("/admin")
     public ModelAndView loadTable(HttpServletRequest request) {
-        if(request.getParameter("username").equals("admin")){
-        ModelAndView mv = new ModelAndView("/admin"); 
-        List<Iphone> listIphone = iphoneJDBCTemplate.getListIphone();
-        mv.addObject("objects",listIphone);
-        return mv;}
-        else return new ModelAndView("/index_iphone");
-}
-    @RequestMapping(value="/admin/find")
-    public void viewFile(){
-        FileDialog fd = new FileDialog(new JFrame(), "Choose a file", FileDialog.LOAD);
-        fd.setDirectory("C:\\");
-        //fd.setFile("*.xls");
-        fd.setVisible(true);
-        String filename = fd.getFile();
+        if (request.getParameter("username").equals("admin")) {
+            ModelAndView mv = new ModelAndView("/admin");
+            List<Iphone> listIphone = iphoneJDBCTemplate.getListIphone();
+            mv.addObject("objects", listIphone);
+            return mv;
+        } else {
+            return new ModelAndView("/index_iphone");
+        }
     }
-    
+
+    @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
+    @ResponseBody
+    public String uploadFile(@RequestParam("file") MultipartFile file) {
+        String name = null;
+
+        if (!file.isEmpty()) {
+            try {
+                byte[] bytes = file.getBytes();
+
+                name = file.getOriginalFilename();
+                
+                String rootPath = System.getProperty("catalina.home");
+                File dir = new File(rootPath + File.separator + "tmpFiles");
+
+                if (!dir.exists()) {
+                    dir.mkdirs();
+                }
+
+                File uploadedFile = new File(dir.getAbsoluteFile() + File.separator + name);
+                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(uploadedFile));
+                stream.write(bytes);
+                stream.flush();
+                stream.close();
+
+                return "successfully uploaded file" + name;
+            } catch (IOException ex) {
+                Logger.getLogger(ControllerIphone.class.getName()).log(Level.SEVERE, null, ex);
+                return "failed";
+            }
+        } else {
+            return "file empty";
+        }
+
+    }
+
     /*
     @RequestMapping(value="/admin",method=RequestMethod.POST)
     public ModelAndView admin(@ModelAttribute User user){

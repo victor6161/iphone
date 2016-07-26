@@ -19,36 +19,53 @@
             </head>
 
             <body>
-                <div class="container">
+               
                     <div class="row" id="header">
-                        <div class="span12">header</div>
+                     
+                        
+                        <div class="row">
+                            <div class="col-lg-10"> 
+                                <img src="resources/assets/images/apple_admin.png" alt="Iphone">
+                            </div>
+                            iphone6@gmail.com<br>
+                            <div class="col-lg-10"></div>
+                            +375 29 255-88-88
+                        </div>
+                        
+                       
+                        
+                        <div class="row">
+                        <div class="col-lg-10"></div>
+                            <form action="index.htm">
+                                <input type="submit" class="btn" value="Выйти">
+                            </form>
+                        </div>
                     </div>
 
                     <div class="row" id="content">
-                        
-                        <div class="col-lg-12">
-                            <table class="table table-striped table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>id</th>
-                                        <th>model</th>
-                                        <th>manufacturer</th>
-                                        <th>year</th>
-                                        <th>type</th>
-                                        <th>os</th>
-                                        <th>display_size</th>
-                                        <th>display_resolution</th>
-                                        <th>ram_memory</th>
-                                        <th>flash_memory</th>
-                                        <th>sim_several</th>
-                                        <th>camera</th>
-                                        <th>matrix_points</th>
-                                        <th>design_case</th>
-                                        <th>material</th>
-                                        <th>color</th>
-                                        <th>sim_format</th>
-                                        <th>dimensions</th>
-                                        
+                        <div class="table-responsive">
+                            <div class="col-lg-12">
+                                <table class="table table-striped table-bordered table-hover table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>model</th>
+                                            <th>manufacturer</th>
+                                            <th>year</th>
+                                            <th>type</th>
+                                            <th>os</th>
+                                            <th>display_size</th>
+                                            <th>display_resolution</th>
+                                            <th>ram_memory</th>
+                                            <th>flash_memory</th>
+                                            <th>sim_several</th>
+                                            <th>camera</th>
+                                            <th>matrix_points</th>
+                                            <th>design_case</th>
+                                            <th>material</th>
+                                            <th>color</th>
+                                            <th>sim_format</th>
+                                            <th>dimensions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -77,6 +94,7 @@
                                 </tbody>
                             </table>
 
+                            </div>
                         </div>
                     </div>
 
@@ -84,38 +102,37 @@
                         
                         <div class="col-lg-5">
                             <div class="row">
-                                <input type="button" class="btn" value="Найти файл"/>
+                                <form method="POST" action="uploadFile.htm" enctype="multipart/form-data">
+                                    <input type="file" name="file"> <br>
+                                    <input type="submit" value="Добавить телефон">
+                                </form>
                             </div>
                             <div class="row">
-                                <input type="button" class="btn" value="Добавить телефон"/>
+                                <form method="POST" action="uploadFile.htm" enctype="multipart/form-data">
+                                    <input type="file" name="file"> <br>
+                                    <input type="submit" value="Обновить цену">
+                                </form>
                             </div>
-                            <div class="row">
-                                <input type="button" class="btn" value="Найти файл"/>
-                            </div>
-                            <div class="row">
-                                <input type="button" class="btn" value="Обновить цену"/>
-                            </div>
-
-
                         </div>
                         <div class="col-lg-2"></div>
                         <div class="col-lg-5">
                             <div class="row">
-                                <form action="find.htm">
-                                    <input type="submit"  value="Найти файл">
-                                
-                                </form>
-                            </div>
-                            <div class="row">
-                                <input type="button" class="btn" value="Загрузить фотографию"/>
+                                <div class="row">
+                                    <form method="POST" action="uploadFile.htm" enctype="multipart/form-data">
+                                        <input type="file" name="file"> <br>
+                                        <input type="submit" value="Загрузить фотографию">
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="row" id="footer">
-                        <div class="span12">footer </div>
+                        
+                        <img src="resources/jpg/eftech.png" alt="Iphone"><br>
+                        
                     </div>
-                </div>
+             
 
             </body>
 
