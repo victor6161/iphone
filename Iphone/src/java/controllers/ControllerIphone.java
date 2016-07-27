@@ -3,9 +3,14 @@ package controllers;
 import java.awt.FileDialog;
 import java.awt.Frame;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -13,6 +18,9 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.swing.JFrame;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -122,7 +130,7 @@ public class ControllerIphone {
         
     }*/
     @RequestMapping("/admin")
-    public ModelAndView loadTable(HttpServletRequest request) {
+    public ModelAndView admin(HttpServletRequest request) {
         if (request.getParameter("username").equals("admin")) {
             ModelAndView mv = new ModelAndView("/admin");
             List<Iphone> listIphone = iphoneJDBCTemplate.getListIphone();
@@ -135,29 +143,27 @@ public class ControllerIphone {
 
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
     @ResponseBody
-    public String uploadFile(@RequestParam("file") MultipartFile file) {
+    public String uploadFile(@RequestParam("file") MultipartFile multipartFile) {
         String name = null;
 
-        if (!file.isEmpty()) {
+        if (!multipartFile.isEmpty()) {
             try {
-                byte[] bytes = file.getBytes();
-
-                name = file.getOriginalFilename();
-                
-                String rootPath = System.getProperty("catalina.home");
-                File dir = new File(rootPath + File.separator + "tmpFiles");
-
-                if (!dir.exists()) {
-                    dir.mkdirs();
-                }
-
-                File uploadedFile = new File(dir.getAbsoluteFile() + File.separator + name);
-                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(uploadedFile));
-                stream.write(bytes);
-                stream.flush();
-                stream.close();
-
-                return "successfully uploaded file" + name;
+                HSSFWorkbook myExcelBook = new HSSFWorkbook(new ByteArrayInputStream(multipartFile.getBytes())) ;
+                HSSFSheet myExcelSheet = myExcelBook.getSheet("Лист1");
+                HSSFRow row = myExcelSheet.getRow(0);
+                row.getCell(0).getStringCellValue();
+                //File file = new File("C:\\Users\\я\\Desktop\\work folder\\Новая (2)\\IPhone (example)\\IPhone\\1.txt");
+                //multipartFile.transferTo(file);
+               // FileWriter fw=new FileWriter(file,true);
+               // fw.write("aaa");
+               // fw.close();
+                // File convFile = new File(multipartFile.getOriginalFilename());
+                 //convFile.createNewFile(); 
+                 //FileOutputStream fos = new FileOutputStream(convFile); 
+                 //fos.write(multipartFile.getBytes());
+                //String s2 = new String(multipartFile.getBytes());
+                 
+                return row.getCell(0).getStringCellValue();
             } catch (IOException ex) {
                 Logger.getLogger(ControllerIphone.class.getName()).log(Level.SEVERE, null, ex);
                 return "failed";

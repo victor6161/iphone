@@ -18,7 +18,7 @@
 
 <!--Лоступ к папке ресурсы-->
 <mvc:resources mapping="/resources/**" location="/resources/" />   
-<mvc:resources mapping="/bootstrap-3.3.5-dist/**" location="/resources/" />
+
 <!--Даёт возможность использовать все анотации Spring MVC (Стр 329)-->
     <mvc:annotation-driven />
     

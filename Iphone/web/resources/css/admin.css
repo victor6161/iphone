@@ -1,12 +1,13 @@
 #header{
    font-size: medium;
+   border-bottom:2px solid black;
 }
 
 #buttons{
     height: 270px;
 }
 #footer{
-    
+    border-top:2px solid black; 
     height:90px;
 }
 

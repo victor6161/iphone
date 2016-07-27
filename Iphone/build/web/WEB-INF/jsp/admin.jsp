@@ -7,10 +7,10 @@
 
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-                <link rel="stylesheet" href="<c:url value="/resources/bootstrap-3.3.5-dist/css/bootstrap.css "/>">
-                <link rel="stylesheet" href="<c:url value="/resources/bootstrap-3.3.5-dist/css/bootstrap-theme.css "/>">
-                <link rel="stylesheet" href="<c:url value="/resources/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css "/>">
-                <link rel="stylesheet" href="<c:url value="/resources/bootstrap-3.3.5-dist/css/bootstrap.min.css "/>">
+                <link rel="stylesheet" href="<c:url value="/resources/bootstrap/css/bootstrap.css "/>">
+                <link rel="stylesheet" href="<c:url value="/resources/bootstrap/css/bootstrap-theme.css "/>">
+                <link rel="stylesheet" href="<c:url value="/resources/bootstrap/css/bootstrap-theme.min.css "/>">
+                <link rel="stylesheet" href="<c:url value="/resources/bootstrap/css/bootstrap.min.css "/>">
 
                 <script type="text/javascript" src="/resources/bootstrap/js/jquery-1.11.3.min.js"></script>
                 <script type="text/javascript" src="/resource/bootstrap/js/bootstrap.min.js"></script>
@@ -37,7 +37,7 @@
                         <div class="row">
                         <div class="col-lg-10"></div>
                             <form action="index.htm">
-                                <input type="submit" class="btn" value="Выйти">
+                                <input type="submit"  value="Выйти">
                             </form>
                         </div>
                     </div>
