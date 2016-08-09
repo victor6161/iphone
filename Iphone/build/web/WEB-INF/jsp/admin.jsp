@@ -25,7 +25,7 @@
                         
                         <div class="row">
                             <div class="col-lg-10"> 
-                                <img src="resources/assets/images/apple_admin.png" alt="Iphone">
+                           
                             </div>
                             iphone6@gmail.com<br>
                             <div class="col-lg-10"></div>
@@ -49,46 +49,38 @@
                                     <thead>
                                         <tr>
                                             <th>id</th>
-                                            <th>model</th>
-                                            <th>manufacturer</th>
-                                            <th>year</th>
-                                            <th>type</th>
-                                            <th>os</th>
-                                            <th>display_size</th>
-                                            <th>display_resolution</th>
-                                            <th>ram_memory</th>
-                                            <th>flash_memory</th>
-                                            <th>sim_several</th>
-                                            <th>camera</th>
-                                            <th>matrix_points</th>
-                                            <th>design_case</th>
-                                            <th>material</th>
-                                            <th>color</th>
-                                            <th>sim_format</th>
-                                            <th>dimensions</th>
+                                            <th>title</th>
+                                            <th>lacquer</th>
+                                            <th>fastening</th>
+                                            <th>bevel</th>
+                                            <th>length</th>
+                                            <th>weight</th>
+                                            <th>thickness</th>
+                                            <th>price</th>
+                                            <th>photo1</th>
+                                            <th>photo2</th>
+                                            <th>photo3</th>
+                                            <th>photo4</th>
+                                            <th>description</th>   
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <c:forEach var="o" items="${objects}">
                                         <tr>
                                             <td>${o.id}</td>
-                                            <td>${o.model}</td>
-                                            <td>${o.manufacturer}</td>
-                                            <td>${o.year}</td>
-                                            <td>${o.type}</td>
-                                            <td>${o.os}</td>
-                                            <td>${o.display_size}</td>
-                                            <td>${o.display_resolution}</td>
-                                            <td>${o.ram_memory}</td>
-                                            <td>${o.flash_memory}</td>
-                                            <td>${o.sim_several}</td>
-                                            <td>${o.camera}</td>
-                                            <td>${o.matrix_points}</td>
-                                            <td>${o.design_case}</td>
-                                            <td>${o.material}</td>
-                                            <td>${o.color}</td>
-                                            <td>${o.sim_format}</td>
-                                            <td>${o.dimensions}</td>
+                                            <td>${o.title}</td>
+                                            <td>${o.lacquer}</td>
+                                            <td>${o.fastening}</td>
+                                            <td>${o.bevel}</td>
+                                            <td>${o.length}</td>
+                                            <td>${o.weight}</td>
+                                            <td>${o.thickness}</td>
+                                            <td>${o.price}</td>
+                                            <td>${o.photo1}</td>
+                                            <td>${o.photo2}</td>
+                                            <td>${o.photo3}</td>
+                                            <td>${o.photo4}</td>
+                                            <td>${o.description}</td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>

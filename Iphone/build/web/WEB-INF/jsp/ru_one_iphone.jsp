@@ -120,7 +120,7 @@
                         <!--/.breadcrumb-item--> 
 
                         <li class="breadcrumb-item current">
-                            <a href="">${iphone.manufacturer} - ${iphone.model}</a>
+                            <a href="">${souvenir.title}</a>
                         </li> 
                         <!--/.breadcrumb-item--> 
                     </ul>
@@ -149,28 +149,28 @@
 
         <div id="owl-single-product">
             <div class="single-product-gallery-item" id="slide1">
-                <a data-rel="prettyphoto" href="resources/assets/images/products/${iphone.photo1}">
+                <a data-rel="prettyphoto" href="resources/assets/images/products/${souvenir.photo1}">
                     <img class="img-responsive" alt="" 
-                         src="resources/assets/images/products/${iphone.photo1}" 
-                         data-echo="resources/assets/images/products/${iphone.photo1}" />
+                         src="resources/assets/images/products/${souvenir.photo1}" 
+                         data-echo="resources/assets/images/products/${souvenir.photo1}" />
                          <!--src="resources/assets/images/blank.gif"--> 
                 </a>
             </div><!-- /.single-product-gallery-item -->
             
             <div class="single-product-gallery-item" id="slide2">
-                <a data-rel="prettyphoto" href="resources/assets/images/products/${iphone.photo2}">
+                <a data-rel="prettyphoto" href="resources/assets/images/products/${souvenir.photo2}">
                     <img class="img-responsive" alt="" 
-                         src="resources/assets/images/products/${iphone.photo2}" 
-                         data-echo="resources/assets/images/products/${iphone.photo2}" />
+                         src="resources/assets/images/products/${souvenir.photo2}" 
+                         data-echo="resources/assets/images/products/${souvenir.photo2}" />
                          <!--src="resources/assets/images/blank.gif"--> 
                 </a>
             </div><!-- /.single-product-gallery-item -->
             
             <div class="single-product-gallery-item" id="slide3">
-                <a data-rel="prettyphoto" href="resources/assets/images/products/${iphone.photo3}">
+                <a data-rel="prettyphoto" href="resources/assets/images/products/${souvenir.photo3}">
                     <img class="img-responsive" alt="" 
-                         src="resources/assets/images/products/${iphone.photo3}" 
-                         data-echo="resources/assets/images/products/${iphone.photo3}" />
+                         src="resources/assets/images/products/${souvenir.photo3}" 
+                         data-echo="resources/assets/images/products/${souvenir.photo3}" />
                          <!--src="resources/assets/images/blank.gif"--> 
                 </a>
             </div><!-- /.single-product-gallery-item -->
@@ -194,18 +194,18 @@
             <div id="owl-single-product-thumbnails">
                 <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="0" href="#slide1">
                     <!--<img width="67" alt="" src="resources/assets/images/blank.gif" data-echo="resources/assets/images/products/bench${iphone.id}.jpg" />-->
-                    <img width="67" alt="" src="resources/assets/images/products/${iphone.photo1}" data-echo="resources/assets/images/products/${iphone.photo1}" />
+                    <img width="67" alt="" src="resources/assets/images/products/${souvenir.photo1}" data-echo="resources/assets/images/products/${souvenir.photo1}" />
                 </a>
 
    
                 <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="1" href="#slide2">
                     <!--<img width="67" alt="" src="resources/assets/images/blank.gif" data-echo="resources/assets/images/products/gallery-thumb-01.jpg" />-->
-                    <img width="67" alt=""  src="resources/assets/images/products/${iphone.photo2}" data-echo="resources/assets/images/products/${iphone.photo2}"  />
+                    <img width="67" alt=""  src="resources/assets/images/products/${souvenir.photo2}" data-echo="resources/assets/images/products/${souvenir.photo2}"  />
                 </a>
 
                 <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="2" href="#slide3">
                     <!--<img width="67" alt="" src="resources/assets/images/blank.gif" data-echo="resources/assets/images/products/bench${iphone.id}.jpg" />-->
-                    <img width="67" alt=""  src="resources/assets/images/products/${iphone.photo3}" data-echo="resources/assets/images/products/${iphone.photo3}"  />
+                    <img width="67" alt=""  src="resources/assets/images/products/${souvenir.photo3}" data-echo="resources/assets/images/products/${souvenir.photo3}"  />
                 </a>
 <!--                <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="2" href="#slide3">
                     <img width="67" alt="" src="resources/assets/images/blank.gif" data-echo="resources/assets/images/products/bench${iphone.id}.jpg" />
@@ -237,8 +237,8 @@
         <!--<div class="star-holder inline"><div class="star" data-score="4"></div></div>-->
         <div class="availability"><label>Availability:</label><span class="available">  in stock</span></div>
 
-        <div class="title"><a href="#">${iphone.manufacturer} - ${iphone.model}</a></div>
-        <div class="brand">${iphone.year}   </div>
+        <div class="title"><a href="#">${souvenir.title}</a></div>
+        <div class="brand">${souvneir.price}   </div>
 
         <div class="social-row">
             <span class="st_facebook_hcount"></span>
@@ -247,12 +247,12 @@
         </div>
 
         <div class="buttons-holder">
-            <a class="btn-add-to-wishlist" href="add-product-to-wish-list.htm?id=${iphone.id}">add to wishlist</a>
-            <a class="btn-add-to-compare" href="add-product-to-compare-list.htm?id=${iphone.id}">add to compare list</a>
+            <a class="btn-add-to-wishlist" href="add-product-to-wish-list.htm?id=${souvenir.id}">add to wishlist</a>
+            <a class="btn-add-to-compare" href="add-product-to-compare-list.htm?id=${souvenir.id}">add to compare list</a>
         </div>
 
         <div class="excerpt">
-            <p>${iphone.description}</p>
+            <p>${souvenir.description}</p>
             
         </div>
         
@@ -269,7 +269,7 @@
                     <a class="plus" href="#add"></a>
                 </form>
             </div>-->
-            <a id="addto-cart" href="add-product-to-customer-basket.htm?id=${iphone.id}" class="le-button huge">add to cart</a>
+            <a id="addto-cart" href="add-product-to-customer-basket.htm?id=${souvenir.id}" class="le-button huge">add to cart</a>
         </div><!-- /.qnt-holder -->
     </div><!-- /.body -->
 
@@ -295,7 +295,7 @@
 
             <div class="tab-content">
                 <div class="tab-pane active" id="description">
-                    <p>${iphone.description}</p>
+                    <p>${souvenir.description}</p>
 
                     <!--<p>Sed consequat orci vel rutrum blandit. Nam non leo vel risus cursus porta quis non nulla. Vestibulum vitae pellentesque nunc. In hac habitasse platea dictumst. Cras egestas, turpis a malesuada mollis, magna tortor scelerisque urna, in pellentesque diam tellus sit amet velit. Donec vel rhoncus nisi, eget placerat elit. Phasellus dignissim nisl vel lectus vehicula, eget vehicula nisl egestas. Duis pretium sed risus dapibus egestas. Nam lectus felis, sodales sit amet turpis se.</p>-->
                    
@@ -331,105 +331,25 @@
                 <ul class="tabled-data">
                     <li>
                         <label>Модель </label>
-                        <div class="value">${iphone.model}</div>
+                        <div class="value">${souvenir.title}</div>
 
                     </li>
-                        <li>
-                            <label>Производитель</label>
-                            <div class="value">${iphone.manufacturer}</div>
-                            
-                        </li>
+                    
                             <li>
-                                <label>Год </label>
-                                <div class="value">${iphone.year}</div>
+                                <label>цена </label>
+                                <div class="value">${souvenir.price}</div>
                             </li>
                             
-            <li>
-                <label>Тип</label>
-                <div class="value">${iphone.type}</div>
-            </li>
-                    <li>
-                        <label>Операционная система</label>
-                        <div class="value">${iphone.os}</div>
-                    </li>
+            
                             <li>
-                                <label>Размер экрана</label>
-                                <div class="value">${iphone.display_size}</div>
+                                <label>Длина</label>
+                                <div class="value">${souvenir.length}</div>
                             </li>
-                                    <li>
-                                        <label>Разрешение экрана</label>
-                                        <div class="value">${iphone.display_resolution}</div>
-                                    </li>
-                                            <li>
-                                                <label>RAM память</label>
-                                                <div class="value">${iphone.ram_memory}</div> mm
-                                            </li>
-                                                    <li>
-                                                        <label>Flash память</label>
-                                                        <div class="value">${iphone.flash_memory}</div>
-                                                    </li>
-                        <li>
-                            <label>Несколько СИМ</label>
-                            <div class="value">${iphone.sim_several}</div>
-                        </li>
-                                <li>
-                                    <label>Камера</label>
-                                    <div class="value">${iphone.camera}</div>
-                                </li>
-                                        <li>
-                                            <label>Количество точек матрицы </label>
-                                            <div class="value">${iphone.matrix_points},  Мп</div>
-                                        </li>
-                                                <li>
-                                                    <label>Конструкция корпуса </label>
-                                                    <div class="value">${iphone.design_case}</div>
-                                                </li>
-
-                <li>
-                    <label>Материал</label>
-                    <div class="value">${iphone.material}</div>
-                </li>
-                        <li>
-                            <label>Цвет</label>
-                            <div class="value">${iphone.color}</div>
-                        </li>
-                                <li>
-                                    <label>Формат SIM-карты  </label>
-                                    <div class="value">${iphone.sim_format}</div>
-                                </li>
-                        <li>
-                            <label>Габориты</label>
-                            <div class="value">${iphone.dimensions}</div>
-                        </li>
-                                <li>
-                                    <label>Вес  </label>
-                                    <div class="value">${iphone.weight}</div>
-                                </li>
-
-                <li>
-                    <label>Тип аккумулятора </label>
-                    <div class="value">${iphone.battery_type}</div>
-                </li>
-                        <li>
-                            <label>Ёмкость аккумулятора</label>
-                            <div class="value">${iphone.battery_capacity}  мА·ч</div>
-                        </li>
-                                <li>
-                                    <label>Несъёмный аккумулятор </label>
-                                    <div class="value">${iphone.battery_removable}</div>
-                                </li>
-                                        <li>
-                                            <label>Время разговора</label>
-                                            <div class="value">${iphone.time_talk}, часов</div>
-                                        </li>
-                                                <li>
-                                                    <label>Время ожидания (коректир)</label>
-                                                    <div class="value">${iphone.time_out}</div>
-                                                </li>
-                                                        <li>
-                                                            <label>Описание</label>
-                                                            <div class="value">${iphone.description}</div>
-                                                        </li>
+                            
+                            <li>
+                                <label>Описание</label>
+                                <div class="value">${souvenir.description}</div>
+                            </li>
                       
                         
                     </ul><!-- /.tabled-data -->

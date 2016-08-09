@@ -13,9 +13,9 @@ import java.util.List;
  */
 public interface IphoneDAO {
 
-    public List<Iphone> getListIphone();
+    public List<Souvenir> getListSouvenir();
 //     public void addIphone(Iphone iphone);
 
-    public Iphone getIphone(int id);
+    public Souvenir getSouvenir(String id);
 
 }

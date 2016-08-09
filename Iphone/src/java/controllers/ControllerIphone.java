@@ -1,31 +1,35 @@
 package controllers;
 
-import java.awt.FileDialog;
-import java.awt.Frame;
-import java.io.BufferedOutputStream;
+import com.google.gson.Gson;
+import static com.sun.xml.internal.ws.api.message.Packet.Status.Response;
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
+
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.swing.JFrame;
-import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+
+
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,8 +37,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import phone.comparephone.CompareCart;
-import phone.iphone.DB;
-import phone.iphone.Iphone;
+
+import phone.iphone.Souvenir;
 import phone.iphone.IphoneJDBCTemplate;
 
 @Controller
@@ -46,10 +50,6 @@ public class ControllerIphone {
     @RequestMapping(value = {"/index", "/"}, method = RequestMethod.GET)
     public ModelAndView userSorexInfo(HttpSession session) {
         ModelAndView mv = new ModelAndView("index_iphone");
-
-//     List<Hmc> listHmc = hmcJDBCTemplate.listHmc();
-//        printInFile(listHmc.toString());
-//        mv.addObject("listHmc", listHmc);
         session.setAttribute("page", "index");
 
         return mv;
@@ -59,29 +59,25 @@ public class ControllerIphone {
     public ModelAndView iphones(HttpSession session) {
         ModelAndView mv = new ModelAndView("ru_all_iphone");
 
-        List<Iphone> listIphone = iphoneJDBCTemplate.getListIphone();
-//////        printInFile(listHmc.toString());
-        mv.addObject("listIphone", listIphone);
+        List<Souvenir> listSouvenir = iphoneJDBCTemplate.getListSouvenir();
+        mv.addObject("listSouvenir", listSouvenir);
+        
+         ArrayList listTitle=new ArrayList();
+        for(int i=0;i<listSouvenir.size();i++)
+             listTitle.add(listSouvenir.get(i).getTitle());
+        
+        mv.addObject("listTitle", listTitle);
+        
         session.setAttribute("page", "iphones");
-//
-//                mv.addObject("kol_vo_page", 11);
-////        mv.addObject("kol_vo_prod", vmcJDBCTemplate.getKol_vo_product());
-//        mv.addObject("page_nomber", 1);
-//        mv.addObject("kol_vo_on_page", 6);
-
         return mv;
     }
 
     @RequestMapping(value = "/iphone-{id}", method = RequestMethod.GET)
-    public ModelAndView iphine(@PathVariable("id") int id, HttpSession session) {
-
-//     ModelAndView mv = new ModelAndView("one_iph");
+    public ModelAndView iphine(@PathVariable("id") String id, HttpSession session) {
         ModelAndView mv = new ModelAndView("ru_one_iphone");
-        Iphone iphone = iphoneJDBCTemplate.getIphone(id);
-//        printInFile("HMC exeption2.txt", hmc.toString());
-        mv.addObject("iphone", iphone);
+        Souvenir souvenir= iphoneJDBCTemplate.getSouvenir(id);
+        mv.addObject("souvenir", souvenir);
         session.setAttribute("page", "iphone-" + id);
-
         return mv;
     }
 
@@ -90,27 +86,27 @@ public class ControllerIphone {
     public ModelAndView compare(HttpSession session) {
         ModelAndView mv = new ModelAndView("ru_compare");
 
-        CompareCart compareCart = (CompareCart) session.getAttribute("compareCart");
+       /* CompareCart compareCart = (CompareCart) session.getAttribute("compareCart");
         if (compareCart == null) {
             compareCart = new CompareCart();
-        }
-
-        mv.addObject("compareCart", compareCart);
-
+        }*/
+            List<Souvenir> listSouvenir = iphoneJDBCTemplate.getListSouvenir();
+            mv.addObject("objects", listSouvenir);
+        //mv.addObject("compareCart", compareCart);
         session.setAttribute("page", "compare");
         return mv;
     }
 
     @RequestMapping("/add-product-to-compare-list")
-    public String addProductToCompareList(@RequestParam(value = "id") int id, HttpSession session) {
+    public String addProductToCompareList(@RequestParam(value = "id") String id, HttpSession session) {
 //            @RequestParam(value = "page") Integer page,           
         CompareCart compareCart = (CompareCart) session.getAttribute("compareCart");
         if (compareCart == null) {
             compareCart = new CompareCart();
         }
 
-        Iphone iphone = iphoneJDBCTemplate.getIphone(id);
-        compareCart.addItem(iphone);
+        Souvenir iphone = iphoneJDBCTemplate.getSouvenir(id);
+       // compareCart.addItem(iphone);
         session.setAttribute("compareCart", compareCart);
 
         String page;
@@ -121,20 +117,39 @@ public class ControllerIphone {
         }
         return "redirect:/" + page + ".htm";
     }
+    
+    
+    @RequestMapping(value="/filter",method=RequestMethod.GET,produces={"text/html; charset=UTF-8"})
+    public @ResponseBody String filter(@RequestParam String from,@RequestParam String to) {//@ResponseBody чтобы не было перенаправление
+        if(from.isEmpty()) from="0"; 
+        if(to.isEmpty()) to="2147483647";
+        List<Souvenir> listSouvenir1=iphoneJDBCTemplate.getListSouvenir();
+        Iterator<Souvenir> iter = listSouvenir1.iterator();
+        while(iter.hasNext()){
+            Souvenir next = iter.next();          
+            if((next.getPrice()<Integer.parseInt(from) || next.getPrice()<Integer.parseInt(to)))
+		iter.remove();
+	}
+        /*
+        if(!title.isEmpty()){
+        Iterator<Souvenir> iterTitle = listSouvenir1.iterator();
+         while(iterTitle.hasNext()){
+            Souvenir next = iterTitle.next();          
+            if(!next.getTitle().equals(title))
+		iterTitle.remove();
+         }
+	}*/
+        
+            
+        return new Gson().toJson(listSouvenir1);
+    }
 
-    /*
-   @RequestMapping("/admin")
-    public String main(){
-        
-        return "admin";
-        
-    }*/
     @RequestMapping("/admin")
     public ModelAndView admin(HttpServletRequest request) {
         if (request.getParameter("username").equals("admin")) {
             ModelAndView mv = new ModelAndView("/admin");
-            List<Iphone> listIphone = iphoneJDBCTemplate.getListIphone();
-            mv.addObject("objects", listIphone);
+            List<Souvenir> listSouvenir = iphoneJDBCTemplate.getListSouvenir();
+            mv.addObject("objects", listSouvenir);
             return mv;
         } else {
             return new ModelAndView("/index_iphone");
@@ -143,44 +158,64 @@ public class ControllerIphone {
 
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
     @ResponseBody
-    public String uploadFile(@RequestParam("file") MultipartFile multipartFile) {
-        String name = null;
-
+    public ModelAndView uploadFile(@RequestParam("file") MultipartFile multipartFile) {
+        ModelAndView mv = new ModelAndView("/admin");
         if (!multipartFile.isEmpty()) {
             try {
                 HSSFWorkbook myExcelBook = new HSSFWorkbook(new ByteArrayInputStream(multipartFile.getBytes())) ;
                 HSSFSheet myExcelSheet = myExcelBook.getSheet("Лист1");
-                HSSFRow row = myExcelSheet.getRow(0);
-                row.getCell(0).getStringCellValue();
-                //File file = new File("C:\\Users\\я\\Desktop\\work folder\\Новая (2)\\IPhone (example)\\IPhone\\1.txt");
-                //multipartFile.transferTo(file);
-               // FileWriter fw=new FileWriter(file,true);
-               // fw.write("aaa");
-               // fw.close();
-                // File convFile = new File(multipartFile.getOriginalFilename());
-                 //convFile.createNewFile(); 
-                 //FileOutputStream fos = new FileOutputStream(convFile); 
-                 //fos.write(multipartFile.getBytes());
-                //String s2 = new String(multipartFile.getBytes());
-                 
-                return row.getCell(0).getStringCellValue();
+             
+                Map namedParameters = new HashMap(); 
+                namedParameters.put("id", myExcelSheet.getRow(0).getCell(1).getStringCellValue());
+                namedParameters.put("title", myExcelSheet.getRow(1).getCell(1).getStringCellValue());
+                namedParameters.put("lacquer", myExcelSheet.getRow(2).getCell(1).getStringCellValue());
+                namedParameters.put("fastening",  myExcelSheet.getRow(3).getCell(1).getStringCellValue());
+                namedParameters.put("bevel", myExcelSheet.getRow(4).getCell(1).getStringCellValue());
+                namedParameters.put("length",  myExcelSheet.getRow(5).getCell(1).getNumericCellValue());
+                namedParameters.put("weight", myExcelSheet.getRow(6).getCell(1).getNumericCellValue());
+                namedParameters.put("thickness", myExcelSheet.getRow(7).getCell(1).getNumericCellValue());
+                namedParameters.put("price",myExcelSheet.getRow(8).getCell(1).getNumericCellValue());
+                namedParameters.put("photo1", myExcelSheet.getRow(9).getCell(1).getStringCellValue());
+                namedParameters.put("photo2",myExcelSheet.getRow(10).getCell(1).getStringCellValue());
+                namedParameters.put("photo3", myExcelSheet.getRow(11).getCell(1).getStringCellValue());
+                namedParameters.put("photo4",myExcelSheet.getRow(12).getCell(1).getStringCellValue());   
+                namedParameters.put("description", myExcelSheet.getRow(13).getCell(1).getStringCellValue());
+                
+                List<Souvenir> listSouvenirTest = iphoneJDBCTemplate.getListSouvenir();
+                boolean uniqueKey=true;
+                for(int i=0;i<listSouvenirTest.size();i++){
+                    if(listSouvenirTest.get(i).getId().equals(myExcelSheet.getRow(0).getCell(1).getStringCellValue())) uniqueKey=false;
+                }
+                
+                if(uniqueKey){
+                    iphoneJDBCTemplate.setSouvenir(namedParameters);
+                }
+                
+                List<Souvenir> listSouvenir = iphoneJDBCTemplate.getListSouvenir();
+                mv.addObject("objects", listSouvenir);
+                return mv;
+                
             } catch (IOException ex) {
                 Logger.getLogger(ControllerIphone.class.getName()).log(Level.SEVERE, null, ex);
-                return "failed";
+                return mv;
             }
-        } else {
-            return "file empty";
-        }
-
+        } 
+    return mv;
     }
 
-    /*
-    @RequestMapping(value="/admin",method=RequestMethod.POST)
-    public ModelAndView admin(@ModelAttribute User user){
-       ModelAndView modelAndView=new ModelAndView();
-       modelAndView.setViewName("main");
-       modelAndView.addObject("user", user);
-       return modelAndView;
-       
-   }*/
+
 }
+  /*
+            ModelAndView mv = new ModelAndView("/ru_all_iphone");
+            List<Souvenir> listSouvenir1=iphoneJDBCTemplate.getListSouvenir();
+            String reqFrom=request.getParameter("from");
+            String reqTo=request.getParameter("to");
+            if(reqFrom.isEmpty()) reqFrom="0";
+            if(reqTo.isEmpty()) reqTo="2147483647;
+            for(int i=0;i<listSouvenir1.size();i++){
+            if(listSouvenir1.get(i).getPrice()<Integer.parseInt(reqFrom) || listSouvenir1.get(i).getPrice()>Integer.parseInt(reqTo))
+                listSouvenir1.remove(i);//????????????????????????
+                i--;
+            }      
+            mv.addObject("listSouvenir", listSouvenir1);
+            return mv;*/

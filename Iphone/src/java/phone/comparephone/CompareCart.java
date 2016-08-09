@@ -8,7 +8,7 @@ package phone.comparephone;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
-import phone.iphone.Iphone;
+import phone.iphone.Souvenir;
 
 /**
  *
@@ -27,7 +27,7 @@ public class CompareCart {
 //            total = 0;
     }
 
-    public synchronized void addItem(Iphone iphone) {
+    public synchronized void addItem(Souvenir iphone) {
 
         boolean newItem = true;
         for (CompareCartItem scItem : items) {
@@ -43,7 +43,7 @@ public class CompareCart {
         }
     }
 
-    public synchronized void update(Iphone iphone, String quantity) {
+    public synchronized void update(Souvenir iphone, String quantity) {
 
         short qty = -1;
         // cast quantity as short
@@ -83,5 +83,4 @@ public class CompareCart {
     public List<CompareCartItem> getItems() {
         return items;
     }
-
 }

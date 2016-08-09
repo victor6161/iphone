@@ -164,7 +164,7 @@
         
             
             <!--<li><a href="vmc.htm">IPhone 5</a></li>-->
-            <li><a href="iphones.htm">IPhone</a></li>
+            <li><a href="iphones.htm">Деревянные изделия</a></li>
             <!--<li><a href="vmc.htm">IPhone 7</a></li>-->
 <!--            <li><a href="#">Horizontal machine CNC</a></li>
             -->
@@ -179,22 +179,25 @@
 <div id="hero">
     <div id="owl-main" class="owl-carousel owl-inner-nav owl-ui-sm">
         
-        <div class="item" style="background-image: url(resources/assets/images/sliders/iphone5_1.jpg);">
+        <div class="item" style="background: url(resources/assets/images/sliders/i_love_ny.jpg) no-repeat;
+              background-size:contain;
+               background-position:center;
+               ">
             <div class="container-fluid">
                    <div class="caption vertical-center text-left">
                     <div class="big-text fadeInDown-1">
                         <!--Want a<span class="big"><span class="sign">$</span>200</span>Discount?-->
-                       <span class="big"><span class="sign"></span></span>iphone 5c 
+                       <span class="big"><span class="sign"></span></span>
                     </div>
 
                     <div class="excerpt fadeInDown-2">
                         <!--on selected <br>desktop pcs<br>-->
                         <!--Deckel Maho<br>Germany<br>-->
-                        <br>Apple <br>
+                        <br><br>
                     </div>
                     <div class="small fadeInDown-2">
                         <!--terms and conditions apply-->
-                        USA
+                        
                     </div>
 <!--                    <div class="button-holder fadeInDown-3">
                         <a href="single-product.html" class="big le-button ">shop now</a>
@@ -206,21 +209,25 @@
         
 
         <!--<div class="item" style="background-image: url(resources/assets/images/sliders/slider03.jpg);">-->
-        <div class="item" style="background-image: url(resources/assets/images/sliders/iphone5c22.png);">
+        <div class="item" style="
+             background: url(resources/assets/images/sliders/i_love_ny_giga.jpg) no-repeat;
+             background-size:contain;
+              background-position:center;
+             ">
             <div class="container-fluid">
                 <div class="caption vertical-center text-left">
                     <div class="big-text fadeInDown-1">
                         <!--Want a<span class="big"><span class="sign">$</span>200</span>Discount?-->
-                        <span class="big"><span class="sign"></span> </span>iphone 5c
+                        <span class="big"><span class="sign"></span> </span>
                     </div>
 
                     <div class="excerpt fadeInDown-2">
                         <!--on selected <br>desktop pcs<br>-->
-                        <br>Apple<br>
+                        <br><br>
                     </div>
                     <div class="small fadeInDown-2">
                         <!--terms and conditions apply-->
-                        USA
+                        
                     </div>
 <!--                    <div class="button-holder fadeInDown-3">
                         <a href="single-product.html" class="big le-button ">shop now</a>
@@ -230,20 +237,24 @@
             </div><!-- /.container-fluid -->
         </div><!-- /.item -->
         
-        <div class="item" style="background-image: url(resources/assets/images/sliders/iphone6_1_color.jpg);">
+        <div class="item" style="background: url(resources/assets/images/sliders/usa3.jpg) no-repeat;
+              background-size:contain;
+              background-position:center;
+              ">
             <div class="container-fluid">
                 <div class="caption vertical-center text-left">
                     <div class="big-text fadeInDown-1">
-                        <span class="big"><span class="sign"></span></span>iphone 6
+                        <span class="big"><span class="sign"></span></span><!--iphone 6-->
                     </div>
 
                     <div class="excerpt fadeInDown-2">
                         <!--on selected <br>desktop pcs<br>-->
-                        <br>Apple<br>
+                       <!-- <br>Apple<br>-->
                     </div>
+                    <!--
                     <div class="small fadeInDown-2">
                          USA
-                    </div>
+                    </div>-->
 <!--                    <div class="button-holder fadeInDown-3">
                         <a href="single-product.html" class="big le-button ">shop now</a>
                     </div>-->
@@ -834,6 +845,7 @@
 </section> /#recently-reviewd -->
 <!-- ========================================= RECENTLY VIEWED : END ========================================= -->
 <!-- ========================================= TOP BRANDS ========================================= -->
+<!--
 <section id="top-brands" class="wow fadeInUp">
     <div class="container">
         <div class="carousel-holder" >
@@ -845,33 +857,34 @@
                     <a href="#next" data-target="#owl-brands" class="slider-next btn-next fa fa-angle-right"></a>
                 </div>
             </div> 
-            <!--/.title-nav--> 
-            
+            /.title-nav--> 
+              
+            <!--
             <div id="owl-brands" class="owl-carousel brands-carousel">
                 
                 <div class="carousel-item">
                     <!--<a href="#">-->
-                        <img alt="" src="resources/assets/images/brands/brand_iphone5.png" />
+                        <!--<img alt="" src="resources/assets/images/brands/brand_iphone5.png" />
                     <!--</a>-->
-                </div> 
+                <!--</div> 
                 <!--/.carousel-item--> 
-                
+                <!--
                 <div class="carousel-item">
                     <!--<a href="#">-->
-                        <img alt="" src="resources/assets/images/brands/brand_iphone6.png" />
+                    <!--    <img alt="" src="resources/assets/images/brands/brand_iphone6.png" />
                     <!--</a>-->
-                </div> 
+                <!--</div> 
 
 
                
             </div> 
             <!--/.brands-caresoul--> 
 
-        </div> 
+        <!--</div> 
         <!--/.carousel-holder--> 
-    </div> 
+   <!-- </div> 
     <!--/.container--> 
-</section> 
+<!--</section> 
 <!--/#top-brands--> 
 <!-- ========================================= TOP BRANDS : END ========================================= -->       <!-- ============================================================= FOOTER ============================================================= -->
 

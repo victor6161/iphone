@@ -771,7 +771,7 @@ header.ver2 {
   margin-bottom: 13px;
 }
 header .logo-holder .logo {
-  margin: 17px 0;
+  margin: 0px 0;
 }
 header .top-search-holder {
   margin: 0 0 0 -20px;
@@ -4747,7 +4747,7 @@ select.top-drop-menu {
   }
   .logo > a {
     display: block;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
   }
   .logo > a > svg {
     display: block;
@@ -4980,7 +4980,7 @@ select.top-drop-menu {
   }
   .logo > a {
     display: block;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
   }
   .logo > a > svg {
     display: block;

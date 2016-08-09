@@ -223,8 +223,8 @@
                 <!-- ============================================================= CONTACT INFO ============================================================= -->
 <div class="contact-info">
     <div class="footer-logo">
-        <!--<img alt="logo_vmccnc" src="resources/assets/images/vmc_hmc.jpg" width="233" height="54"/>-->
-        <img alt="vmc_and_hmc" src="resources/assets/images/logo_iphones.png" width="233" height="54"/>
+        <!--<img alt="logo_vmccnc" src="resources/assets/images/vmc_hmc.jpg" width="233" height="54"/>
+        <img alt="vmc_and_hmc" src="resources/assets/images/logo_iphones.png" width="233" height="54"/>-->
 <!--        <svg width="233px" height="54px" viewBox="0 0 233 54" version="1.1" xmlns="http://www.w3.org/2000/svg">
             <path fill="#f9f9f9" d=" M 0.00 0.00 L 233.00 0.00 L 233.00 54.00 L 0.00 54.00 L 0.00 0.00 Z" />
             <path class="logo-svg" d=" M 104.82 6.46 C 107.74 5.13 110.66 3.80 113.58 2.46 C 113.59 18.71 113.59 34.95 113.59 51.20 C 110.65 51.20 107.71 51.20 104.78 51.20 C 104.84 50.67 104.96 49.62 105.02 49.09 C 100.02 53.56 91.66 52.69 87.37 47.67 C 84.80 44.83 83.96 40.97 83.20 37.33 C 75.63 37.37 68.05 37.26 60.47 37.40 C 61.41 39.88 62.49 42.75 65.24 43.71 C 69.03 45.31 73.10 43.58 75.89 40.91 C 77.67 42.73 79.47 44.54 81.22 46.40 C 75.60 52.47 65.66 53.95 58.77 49.23 C 53.06 45.18 51.58 37.52 52.30 30.95 C 52.75 25.29 55.84 19.51 61.29 17.27 C 66.83 15.00 73.85 15.40 78.54 19.37 C 81.58 21.92 82.87 25.85 83.50 29.64 C 84.32 24.24 87.32 18.69 92.71 16.75 C 96.83 15.07 101.64 15.89 104.93 18.89 C 104.77 14.75 104.83 10.60 104.82 6.46 Z" />
@@ -247,7 +247,7 @@
         </svg>   -->
     </div><!-- /.footer-logo -->
     
-    <p class="regular-bold"> Apple - IPhone</p>
+    <p class="regular-bold"> Souvenirs</p>
     
     <p>
  +375 (29) 255-88-88 <br>

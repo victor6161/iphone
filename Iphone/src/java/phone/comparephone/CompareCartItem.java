@@ -1,29 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package phone.comparephone;
 
-import org.springframework.stereotype.Service;
-import phone.iphone.Iphone;
 
-/**
- *
- * @author Admin
- */
-//@Service
+import phone.iphone.Souvenir;
+
 public class CompareCartItem {
 
-    Iphone iphone;
+    Souvenir iphone;
     short quantity;
 
-    public CompareCartItem(Iphone iphone) {
+    public CompareCartItem(Souvenir iphone) {
         this.iphone = iphone;
         quantity = 1;
     }
 
-    public Iphone getProduct() {
+    public Souvenir getProduct() {
         return iphone;
     }
 
@@ -54,5 +44,4 @@ public class CompareCartItem {
     public String toString() {
         return "CompareCartItem{" + "iphone=" + iphone + ", quantity=" + quantity + '}';
     }
-
 }
