@@ -61,7 +61,7 @@
                            <a href="wishlist.htm"><i class="fa fa-heart"></i> wishlist <span class="value">${wishlistCart.numberOfItems}</span> </a>
         </div>
         <div class="compare">
-            <a href="compare.htm"><i class="fa fa-exchange"></i> compare <span class="value">${compareCart.numberOfItems}</span> </a>
+            <a href="compare.htm"><i class="fa fa-exchange"></i> compare <span class="value"></span> </a>
         
         </div>
     </div>

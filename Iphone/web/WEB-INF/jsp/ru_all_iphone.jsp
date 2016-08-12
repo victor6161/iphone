@@ -28,7 +28,7 @@
         <link rel="stylesheet" href="resources/assets/css/owl.carousel.css">
         <link rel="stylesheet" href="resources/assets/css/owl.transitions.css">
         <link rel="stylesheet" href="resources/assets/css/animate.min.css">
-
+        <link rel="stylesheet" href="resources/css/cells_for_product.css">
         <!-- Demo Purpose Only. Should be removed in production -->
         <link rel="stylesheet" href="resources/assets/css/config.css">
 
@@ -38,6 +38,7 @@
         <link href="resources/assets/css/orange.css" rel="alternate stylesheet" title="Orange color">
         <link href="resources/assets/css/navy.css" rel="alternate stylesheet" title="Navy color">
         <link href="resources/assets/css/dark-green.css" rel="alternate stylesheet" title="Darkgreen color">
+         
         <!-- Demo Purpose Only. Should be removed in production : END -->
 
         <!-- Fonts -->
@@ -83,7 +84,7 @@
                     От: <input id="from" name="from" type="text" size="10" maxlength="10" onkeydown = "javascript: return ((event.keyCode>47)&&(event.keyCode<58)||(event.keyCode==8)||(event.keyCode==127))" onkeyup="doAjax()" >
                     <br><br>
                     До: <input id="to" name="to" type="text" size="10" maxlength="10" onkeydown = "javascript: return ((event.keyCode>47)&&(event.keyCode<58)||(event.keyCode==8)||(event.keyCode==127))" onkeyup="doAjax()">
-                    
+                     <span id="insert"></span>
                     <hr>
                     <!--<input  type="submit" value="Выбрать Сувениры"/>-->
                 </form>
@@ -99,12 +100,13 @@
             <div id="grid-view" class="products-grid fade tab-pane in active">
                 
                 <div class="product-grid-holder">
-                    <div id="del" class="row no-margin">
+                  
+                       
                         <c:forEach items="${listSouvenir}" var="souvenir"> 
-                            <div class="content"> 
-                                <div class="col-xs-12 col-sm-4 no-margin product-item-holder hover">        
-                                    <div class="image">
-                                        <img alt="" src="resources/assets/images/blank.gif" data-echo="resources/assets/images/products/${souvenir.photo1}" width="246" height="186" />
+                            <div id="del" class="content"> 
+                              <div class="col-xs-12 col-sm-4 no-margin product-item-holder hover"><!--  -->      
+                                  <div class="image">
+                                        <img  alt="" src="resources/assets/images/blank.gif" data-echo="resources/assets/images/products/${souvenir.photo1}" width="246" height="186" />
                                     </div>
                                     
                                     <center>
@@ -123,8 +125,9 @@
                             </div>
                         </c:forEach>
                         
+                        
  <!----------------------End ----------------->
-                    </div><!-- /.row -->
+                    <!-- /.row -->
                 </div><!-- /.product-grid-holder -->
                 <!-- /.pagination-holder -->
             </div><!-- /.products-grid #grid-view -->
@@ -191,14 +194,19 @@
                    
                 }),
                 success:function(data){
-                    $("div.content").empty();
-                    console.log(data);
-                    var dat=jQuery.parseJSON(data);
-                    for (index = 0; index < dat.length; ++index) {
-                        console.log(dat[index]);
-                    }
-                }
-                
+                        $("div.content").empty();
+                        var dat=jQuery.parseJSON(data);
+                        console.log(dat);
+                            $('#del').append('<div class="col-xs-12 col-sm-4 product"></div>');
+                          //  $('#del').append('<table>')
+                        for (var index = 0; index < dat.length; index++) {
+                            
+                            $('.product').append('<div class="image"><img  alt="" src="resources/assets/images/blank.gif" data-echo="resources/assets/images/products/'+dat[index].photo1+'" width="246" height="186" /></div>');  
+                            $('.product').append('<center><b> <a  href="iphone-'+dat[index].id+'.htm">'+dat[index].title+'</a><br>Цена:'+dat[index].price+'</b></center>');       
+                            $('.product').append('<center><a href="add-product-to-customer-basket.htm?id='+dat[index].id+'&page=ru-index" class="le-button">в корзину</a></center>');                 
+                            $('.product').append('<center><a class="btn-add-to-wishlist" href="add-product-to-wish-list.htm?id='+dat[index].id+'">в понравившиеся</a><a class="btn-add-to-compare" href="add-product-to-compare-list.htm?id='+dat[index].id+'">сравнить</a></center>');
+                        }
+                    }  
             });
         }
     </script>

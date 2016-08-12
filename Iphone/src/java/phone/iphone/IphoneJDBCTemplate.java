@@ -12,19 +12,13 @@ public class IphoneJDBCTemplate implements IphoneDAO {
 
     private DataSource dataSource;
     private NamedParameterJdbcTemplate jdbcTemplateObject;
-  
-    
- 
-    
+
     @Override
     public List<Souvenir> getListSouvenir() {
-        
-       List<Souvenir> listSouvenir = jdbcTemplateObject.query("select * from goods", new SouvenirMapper());
+
+        List<Souvenir> listSouvenir = jdbcTemplateObject.query("select * from goods", new SouvenirMapper());
         return listSouvenir;
     }
-  
-    
-    
 
     @Override
     public Souvenir getSouvenir(String id) {
@@ -32,11 +26,11 @@ public class IphoneJDBCTemplate implements IphoneDAO {
         Souvenir iphone = jdbcTemplateObject.queryForObject("select * from goods where id=:id", params, new SouvenirMapper());
         return iphone;
     }
-    
-    public void setSouvenir(Map namedParameters ){
-        String sql="insert into goods(id,title,lacquer,fastening,bevel,length,weight,thickness,price,photo1,photo2,photo3,photo4,description) values (:id,:title,:lacquer,:fastening,:bevel,:length,:weight,:thickness,:price,:photo1,:photo2,:photo3,:photo4,:description) ";    
+
+    public void setSouvenir(Map namedParameters) {
+        String sql = "insert into goods(id,title,lacquer,fastening,bevel,length,weight,thickness,price,photo1,photo2,photo3,photo4,photo5,description) values (:id,:title,:lacquer,:fastening,:bevel,:length,:weight,:thickness,:price,:photo1,:photo2,:photo3,:photo4,:photo5,:description) ";
         jdbcTemplateObject.update(sql, namedParameters);
-       
+
     }
 
     public void setDataSource(DataSource dataSource) {

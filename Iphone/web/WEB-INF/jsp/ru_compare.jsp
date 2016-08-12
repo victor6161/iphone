@@ -74,43 +74,71 @@
                             <div class="col-lg-12">
                                 <table class="table table-striped table-bordered table-hover table-condensed">
                                     <thead>
-                                        <tr>
-                                            <th>id</th>
-                                            <th>title</th>
-                                            <th>lacquer</th>
-                                            <th>fastening</th>
-                                            <th>bevel</th>
-                                            <th>length</th>
-                                            <th>weight</th>
-                                            <th>thickness</th>
-                                            <th>price</th>
-                                            <th>photo1</th>
-                                            <th>photo2</th>
-                                            <th>photo3</th>
-                                            <th>photo4</th>
-                                            <th>description</th>   
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach var="o" items="${objects}">
-                                        <tr>
-                                            <td>${o.id}</td>
-                                            <td>${o.title}</td>
-                                            <td>${o.lacquer}</td>
-                                            <td>${o.fastening}</td>
-                                            <td>${o.bevel}</td>
-                                            <td>${o.length}</td>
-                                            <td>${o.weight}</td>
-                                            <td>${o.thickness}</td>
-                                            <td>${o.price}</td>
-                                            <td>${o.photo1}</td>
-                                            <td>${o.photo2}</td>
-                                            <td>${o.photo3}</td>
-                                            <td>${o.photo4}</td>
-                                            <td>${o.description}</td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
+                                            <tr>
+                                                <th></th>
+                                                <c:forEach var="o" items="${object}"> 
+                                                <td><center><img  alt="" src="resources/assets/images/products/${o.photo1}" width="246" height="186" /> </center> </td>
+                                                    
+                                                </c:forEach>
+                                            </tr>
+                                        
+                                             <tr>
+                                                <th>title</th> 
+                                                <c:forEach var="o" items="${object}">
+                                                    <td><center>${o.title}</center></td>
+                                                </c:forEach>
+                                            </tr>
+                                             <tr>
+                                                <th>price</th> 
+                                                <c:forEach var="o" items="${object}">
+                                                    <td><center>${o.price}</center></td>
+                                                </c:forEach>
+                                            </tr>
+                                             <tr>
+                                                <th>lacquer</th> 
+                                                <c:forEach var="o" items="${object}">
+                                                    <td><center>${o.lacquer}</center></td>
+                                                </c:forEach>
+                                            </tr>
+                                            <tr>
+                                                <th>fastening</th> 
+                                                <c:forEach var="o" items="${object}">
+                                                    <td><center>${o.fastening}</center></td>
+                                                </c:forEach>
+                                            </tr>
+                                            <tr>
+                                                <th>bevel</th> 
+                                                <c:forEach var="o" items="${object}">
+                                                    <td><center>${o.bevel}</center></td>
+                                                </c:forEach>
+                                            </tr>
+                                            <tr>
+                                                <th>length</th> 
+                                                <c:forEach var="o" items="${object}">
+                                                    <td><center>${o.length}</center></td>
+                                                </c:forEach>
+                                            </tr>
+                                            <tr>
+                                                <th>weight</th> 
+                                                <c:forEach var="o" items="${object}">
+                                                    <td><center>${o.weight}</center></td>
+                                                </c:forEach>
+                                            </tr>
+                                            <tr>
+                                                <th>thickness</th> 
+                                                <c:forEach var="o" items="${object}">
+                                                    <td><center>${o.thickness}</center></td>
+                                                </c:forEach>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <th></th>
+                                                <c:forEach var="o" items="${object}">
+                                                <td><center><a style="cursor: pointer" href="del-product-from-compare-list.htm?id=${o.id}">Убрать из сравнения</a></center></td>
+                                                </c:forEach>
+                                            </tr>
+                                            
+                                    </thead>
                             </table>
 
                             </div>

@@ -99,26 +99,26 @@
                                     <input type="submit" value="Добавить телефон">
                                 </form>
                             </div>
-                            <div class="row">
-                                <form method="POST" action="uploadFile.htm" enctype="multipart/form-data">
-                                    <input type="file" name="file"> <br>
-                                    <input type="submit" value="Обновить цену">
-                                </form>
-                            </div>
                         </div>
                         <div class="col-lg-2"></div>
                         <div class="col-lg-5">
                             <div class="row">
-                                <div class="row">
-                                    <form method="POST" action="uploadFile.htm" enctype="multipart/form-data">
-                                        <input type="file" name="file"> <br>
-                                        <input type="submit" value="Загрузить фотографию">
+                                
+                                    <form action="generatePDF.htm">
+                                        Название предприятия: <input type="text" name="factory"><br><br>
+                                        <input type="submit" value="Сделать предложение">
                                     </form>
-                                </div>
+                               
+                        
                             </div>
                         </div>
+                           
+                        
+                        
                     </div>
 
+                    
+                
                     <div class="row" id="footer">
                         
                         <img src="resources/jpg/eftech.png" alt="Iphone"><br>
