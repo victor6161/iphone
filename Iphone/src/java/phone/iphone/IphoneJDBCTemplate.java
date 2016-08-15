@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
+import org.springframework.jdbc.core.RowMapper;
 
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -12,6 +13,21 @@ public class IphoneJDBCTemplate implements IphoneDAO {
 
     private DataSource dataSource;
     private NamedParameterJdbcTemplate jdbcTemplateObject;
+    
+    public void addOrder(Map namedParameters){
+        String sql="insert into orders(customer_name,id_good) values (:customer_name,:id_good);";
+        jdbcTemplateObject.update(sql, namedParameters);
+    }
+    /*
+    public User getUser(String tableName, String customer,String password ){
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("customer",customer);
+        params.addValue("password",password);
+        jdbcTemplateObject.queryForObject("SELECT * FROM"+tableName+"WHERE customer = :customer AND password=:password",params, new SouvenirMapper());
+        
+    }*/
+    
+   
 
     @Override
     public List<Souvenir> getListSouvenir() {

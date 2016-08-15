@@ -42,12 +42,15 @@
              </script>
             </div>
     </div>
-             
-                <form action="admin.htm"  id="login">                    
-                        <input id="username" name="username" type="text" placeholder="Логин" autofocus required/>   
-                        <input id="password" type="password" placeholder="Пароль" required>
+                <div class="login_form">
+                    <form action="user.htm"   id="login" >                    
+                        <input id="customer" name="customer" type="text" placeholder="Логин"  >   
+                        <input id="password" name="password" type="password" placeholder="Пароль" required>
+                        
                         <input type="submit"  value="Вход">
-                </form>
+                        <span id="customer_name">${customer_name}</span>
+                    </form>
+                </div>
                                    
 </div><!-- /.contact-row -->
 <!-- ============================================================= SEARCH AREA ============================================================= -->
@@ -81,7 +84,7 @@
                 <div class="total-price-basket"> 
                     <span class="lbl">your cart:</span>
                     <span class="total-price">
-                        <span class="sign">$</span><span class="value">${cart.subtotal}</span>
+                        <span class="sign">$</span><span class="value">${total_price}</span>
                     </span>
                 </div>
             </a>
@@ -137,5 +140,6 @@
  
 
     </div><!-- /.container -->
+    
       
 </header>

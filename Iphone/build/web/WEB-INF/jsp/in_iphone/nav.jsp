@@ -17,6 +17,7 @@
                         <li role="presentation"><a role="menuitem" class="changecolor dark-green-text" tabindex="-1" href="#" title="Darkgreen color">Dark Green</a></li>
                     </ul>
                 </li>
+               
                 <!--<li><a href="#">Blog</a></li>-->
 <!--                <li><a href="video-machine-center.htm">Video</a></li>
                 <li><a href="#">FAQ</a></li>
@@ -51,7 +52,8 @@
 
         <div class="col-xs-12 col-sm-6 no-margin">
             <ul class="right">
-              
+               
+               
 <!--                <li class="dropdown">           
                     <a class="dropdown-toggle"  data-toggle="dropdown" href="index.htm">USA</a>
                     <ul class="dropdown-menu" role="menu" >

@@ -56,7 +56,7 @@
             <script src="resources/assets/js/respond.min.js"></script>
         <![endif]-->
         
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+       
         <title>JSP Page</title>
     </head>
     <body>
@@ -67,13 +67,13 @@
                 <h1>Фильтр</h1>
                 
                     
-                <form>
+                <form action="filter.htm">
                     
                     <b><a data-toggle="collapse" style="cursor:pointer" data-target="#demo">Название таблички</a></b>
                         <ul id="demo" class="collapse">
                             <c:forEach items="${listTitle}" var="varTitle">
                                 <li>
-                                    <input type="checkbox"> ${varTitle}
+                                    <input type="checkbox" name="filter_title" value="${varTitle}">${varTitle}
                                 </li>
                             </c:forEach>
                         </ul>  
@@ -86,7 +86,7 @@
                     До: <input id="to" name="to" type="text" size="10" maxlength="10" onkeydown = "javascript: return ((event.keyCode>47)&&(event.keyCode<58)||(event.keyCode==8)||(event.keyCode==127))" onkeyup="doAjax()">
                      <span id="insert"></span>
                     <hr>
-                    <!--<input  type="submit" value="Выбрать Сувениры"/>-->
+                    <input  type="submit" value="Выбрать Сувениры"/>
                 </form>
                 </div>
             </div>          
@@ -99,9 +99,7 @@
             <div class="tab-content">
             <div id="grid-view" class="products-grid fade tab-pane in active">
                 
-                <div class="product-grid-holder">
-                  
-                       
+                <div class="product-grid-holder"> 
                         <c:forEach items="${listSouvenir}" var="souvenir"> 
                             <div id="del" class="content"> 
                               <div class="col-xs-12 col-sm-4 no-margin product-item-holder hover"><!--  -->      
@@ -115,7 +113,7 @@
                                         Цена: ${souvenir.price}</b>
                                     </center>
                                     <center>
-                                        <a href="add-product-to-customer-basket.htm?id=${souvenir.id}&page=ru-index" class="le-button">в корзину</a>
+                                        <a href="add-product-to-customer-basket.htm?id=${souvenir.id}" class="le-button">в корзину</a>
                                     </center>
                                     <center>
                                         <a class="btn-add-to-wishlist" href="add-product-to-wish-list.htm?id=${souvenir.id}">в понравившиеся</a>
@@ -168,10 +166,6 @@
     <script src="resources/assets/switchstylesheet/switchstylesheet.js"></script>
     
    <script>
-        
-        
-        
-        
         $(document).ready(function(){ 
             $(".changecolor").switchstylesheet( { seperator:"color"} );
             $('.show-theme-options').click(function(){
@@ -184,7 +178,7 @@
            $('.show-theme-options').delay(2000).trigger('click');
         });
     </script>
-    <script type="text/javascript">
+  <!--  <script type="text/javascript">
         function doAjax(){
             $.ajax({
                 url:'filter.htm',
@@ -209,7 +203,7 @@
                     }  
             });
         }
-    </script>
+    </script>-->
     
     <!-- For demo purposes â can be removed on production : End -->
 

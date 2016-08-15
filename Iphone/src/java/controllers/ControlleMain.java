@@ -1,17 +1,8 @@
 package controllers;
 
 import com.google.gson.Gson;
-import com.itextpdf.text.Anchor;
-import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.CMYKColor;
-import com.itextpdf.text.pdf.PdfWriter;
-import static com.sun.xml.internal.ws.api.message.Packet.Status.Response;
+
 import java.io.ByteArrayInputStream;
 
 import java.io.IOException;
@@ -25,15 +16,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import org.apache.poi.hssf.usermodel.HSSFCell;
+
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
 
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -47,22 +33,18 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import compare.ListCompare;
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
+
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpRequest;
 import pdf.PDFBuilder;
 import phone.iphone.Souvenir;
 import phone.iphone.IphoneJDBCTemplate;
 
 @Controller
-public class ControllerIphone {
+public class ControlleMain {
 
     @Autowired
     IphoneJDBCTemplate iphoneJDBCTemplate;
-
-    static int count = 0;
 
     @RequestMapping(value = {"/index", "/"}, method = RequestMethod.GET)
     public ModelAndView userSorexInfo(HttpSession session) {
@@ -87,6 +69,7 @@ public class ControllerIphone {
         mv.addObject("listTitle", listTitle);
 
         session.setAttribute("page", "iphones");
+        mv.addObject("customer_name", "Здравствуйте, " + session.getAttribute("username") + "!");
         return mv;
     }
 
@@ -96,6 +79,55 @@ public class ControllerIphone {
         Souvenir souvenir = iphoneJDBCTemplate.getSouvenir(id);
         mv.addObject("souvenir", souvenir);
         session.setAttribute("page", "iphone-" + id);
+        return mv;
+    }
+
+    @RequestMapping("/filter")
+    public ModelAndView filter(HttpServletRequest request,HttpSession session) {//@ResponseBody чтобы не было перенаправление
+        ModelAndView mv = new ModelAndView("ru_all_iphone");
+        String from = request.getParameter("from");
+        String to = request.getParameter("to");
+        if (from.isEmpty()) {
+            from = "0";
+        }
+        if (to.isEmpty()) {
+            to = "2147483647";
+        }
+
+        String[] checks = request.getParameterValues("filter_title");
+        
+        List<Souvenir> listSouvenir1 = iphoneJDBCTemplate.getListSouvenir();
+        
+        ArrayList listTitle = new ArrayList();
+        for (int i = 0; i < listSouvenir1.size(); i++) {
+            listTitle.add(listSouvenir1.get(i).getTitle());
+        }
+        mv.addObject("listTitle", listTitle);
+        boolean bp;
+
+        Iterator<Souvenir> iter = listSouvenir1.iterator();
+        while (iter.hasNext()) {
+            bp = false;
+            Souvenir next = iter.next();
+            if (checks != null) {
+                for (String check : checks) {
+                    Logger.getLogger(ControlleMain.class.getName()).log(Level.SEVERE, "next " + next.getTitle());
+                    Logger.getLogger(ControlleMain.class.getName()).log(Level.SEVERE, "check " + check);
+                    if (next.getTitle().equals(check)) {
+                        bp = true;
+                        break;
+                    }
+                }
+            }else{
+                bp=true;
+            }
+            if ((next.getPrice() < Integer.parseInt(from) || next.getPrice() > Integer.parseInt(to)) || !bp) {
+                iter.remove();
+            }
+        }
+
+        mv.addObject("listSouvenir", listSouvenir1);
+        mv.addObject("customer_name", "Здравствуйте, " + session.getAttribute("username") + "!");
         return mv;
     }
 
@@ -109,74 +141,85 @@ public class ControllerIphone {
             listCompare = new ListCompare();
         }
         mv.addObject("object", listCompare.getList());
+        mv.addObject("customer_name", "Здравствуйте, " + session.getAttribute("username") + "!");
         return mv;
     }
 
     @RequestMapping("/add-product-to-compare-list")
     public @ResponseBody
     ModelAndView addProductToCompareList(@RequestParam(value = "id") String id, HttpSession session) {
-//            @RequestParam(value = "page") Integer page,           
         ModelAndView mv = new ModelAndView("ru_all_iphone");
         Souvenir souvenir = iphoneJDBCTemplate.getSouvenir(id);
         ListCompare listCompare = (ListCompare) session.getAttribute("object_for_compare");
+        int i;
         if (listCompare == null) {
             listCompare = new ListCompare();
+            i = 0;
         }
 
         listCompare.addSouvenir(souvenir);
         session.setAttribute("object_for_compare", listCompare);
-        
+
         //!!!!! 
         List<Souvenir> listSouvenir = iphoneJDBCTemplate.getListSouvenir();
         mv.addObject("listSouvenir", listSouvenir);
 
         ArrayList listTitle = new ArrayList();
-        for (int i = 0; i < listSouvenir.size(); i++) {
+        for (i = 0; i < listSouvenir.size(); i++) {
             listTitle.add(listSouvenir.get(i).getTitle());
         }
 
         mv.addObject("listTitle", listTitle);
+        mv.addObject("customer_name", "Здравствуйте, " + session.getAttribute("username") + "!");
         return mv;
     }
 
     @RequestMapping("/del-product-from-compare-list")
     public @ResponseBody
-    ModelAndView delProductFromCompareList(@RequestParam(value = "id") String id, HttpSession session) {           
+    ModelAndView delProductFromCompareList(@RequestParam(value = "id") String id, HttpSession session) {
         ModelAndView mv = new ModelAndView("ru_compare");
         ListCompare listCompare = (ListCompare) session.getAttribute("object_for_compare");
         listCompare.removeSouvenir(id);
         session.setAttribute("object_for_compare", listCompare);
+
         mv.addObject("object", listCompare.getList());
+        mv.addObject("customer_name", "Здравствуйте, " + session.getAttribute("username") + "!");
         return mv;
     }
 
-    @RequestMapping(value = "/filter", method = RequestMethod.GET, produces = {"text/html; charset=UTF-8"})
+    @RequestMapping("/add-product-to-customer-basket")
     public @ResponseBody
-    String filter(@RequestParam String from, @RequestParam String to) {//@ResponseBody чтобы не было перенаправление
-        if (from.isEmpty()) {
-            from = "0";
+    ModelAndView addProductToCustomerBasket(@RequestParam(value = "id") String id, HttpSession session) {
+        ModelAndView mv = new ModelAndView("ru_all_iphone");
+
+//        Logger.getLogger(ControllerSouvenirMain.class.getName()).log(Level.SEVERE, (String) session.getAttribute("username"));
+        Map map = new HashMap();
+        map.put("id_good", id);
+        map.put("customer_name", session.getAttribute("username"));
+
+        iphoneJDBCTemplate.addOrder(map);
+
+        Integer totalPrice = (Integer) session.getAttribute("total_price");
+        if (totalPrice == null) {
+            totalPrice = 0;
         }
-        if (to.isEmpty()) {
-            to = "2147483647";
+
+        Souvenir souvenir = iphoneJDBCTemplate.getSouvenir(id);
+        totalPrice = totalPrice + souvenir.getPrice();
+
+        List<Souvenir> listSouvenir = iphoneJDBCTemplate.getListSouvenir();
+        mv.addObject("listSouvenir", listSouvenir);
+
+        ArrayList listTitle = new ArrayList();
+
+        for (int i = 0; i < listSouvenir.size(); i++) {
+            listTitle.add(listSouvenir.get(i).getTitle());
         }
-        List<Souvenir> listSouvenir1 = iphoneJDBCTemplate.getListSouvenir();
-        Iterator<Souvenir> iter = listSouvenir1.iterator();
-        while (iter.hasNext()) {
-            Souvenir next = iter.next();
-            if ((next.getPrice() < Integer.parseInt(from) || next.getPrice() > Integer.parseInt(to))) {
-                iter.remove();
-            }
-        }
-        /*
-        if(!title.isEmpty()){
-        Iterator<Souvenir> iterTitle = listSouvenir1.iterator();
-         while(iterTitle.hasNext()){
-            Souvenir next = iterTitle.next();          
-            if(!next.getTitle().equals(title))
-		iterTitle.remove();
-         }
-	}*/
-        return new Gson().toJson(listSouvenir1);
+        session.setAttribute("total_price", totalPrice);
+        mv.addObject("customer_name", "Здравствуйте," + session.getAttribute("username") + "!");
+        mv.addObject("total_price", totalPrice);
+        mv.addObject("listTitle", listTitle);
+        return mv;
     }
 
     @RequestMapping("/admin")
@@ -189,6 +232,21 @@ public class ControllerIphone {
         } else {
             return new ModelAndView("/index_iphone");
         }
+    }
+
+    @RequestMapping(value = "/user", method = RequestMethod.GET, produces = {"text/html; charset=UTF-8"})
+    public ModelAndView user(@RequestParam String customer, @RequestParam String password, HttpSession session) {
+        ModelAndView mv = new ModelAndView("/index_iphone");
+       
+        mv.addObject("customer_name", "Здравствуйте, " + customer + "!");
+        session.setAttribute("username", customer);
+        return mv;
+    }
+
+    @RequestMapping("/login_admin")
+    public ModelAndView loginAdmin() {
+        ModelAndView mv = new ModelAndView("/login_admin");
+        return mv;
     }
 
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
@@ -235,39 +293,35 @@ public class ControllerIphone {
                 return mv;
 
             } catch (IOException ex) {
-                Logger.getLogger(ControllerIphone.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ControlleMain.class.getName()).log(Level.SEVERE, null, ex);
                 return mv;
             }
         }
         return mv;
     }
-    
-    @RequestMapping(value = "/generatePDF")
+
+    @RequestMapping(value = "/generatePDF", method = RequestMethod.POST)
     @ResponseBody
-    public ModelAndView generatePDF(HttpServletRequest request,HttpServletResponse response)   {
+    public ModelAndView generatePDF(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mv = new ModelAndView("/admin");
-        List<Souvenir> listSouvenir = iphoneJDBCTemplate.getListSouvenir();
-       
-        try {
-            new PDFBuilder().generatePDF(listSouvenir, request, response);
-        } catch (DocumentException | IOException ex) {
-            Logger.getLogger(ControllerIphone.class.getName()).log(Level.SEVERE, null, ex);
+        List<Souvenir> listSouvenir1 = iphoneJDBCTemplate.getListSouvenir();
+        List<Souvenir> listSouvenir2 = new ArrayList();
+        String[] checks = request.getParameterValues("print");
+
+        //  Logger.getLogger(ControllerIphone.class.getName()).log(Level.SEVERE,request.getParameter("factory") );
+        for (int i1 = 0; i1 < listSouvenir1.size(); i1++) {
+            for (String check : checks) {
+                if (listSouvenir1.get(i1).getId().equals(check)) {
+                    listSouvenir2.add(listSouvenir1.get(i1));
+                }
+            }
         }
-           
+        try {
+            new PDFBuilder().generatePDF(listSouvenir2, request, response);
+        } catch (DocumentException | IOException ex) {
+            Logger.getLogger(ControlleMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return mv;
     }
+
 }
-  /*
-            ModelAndView mv = new ModelAndView("/ru_all_iphone");
-            List<Souvenir> listSouvenir1=iphoneJDBCTemplate.getListSouvenir();
-            String reqFrom=request.getParameter("from");
-            String reqTo=request.getParameter("to");
-            if(reqFrom.isEmpty()) reqFrom="0";
-            if(reqTo.isEmpty()) reqTo="2147483647;
-            for(int i=0;i<listSouvenir1.size();i++){
-            if(listSouvenir1.get(i).getPrice()<Integer.parseInt(reqFrom) || listSouvenir1.get(i).getPrice()>Integer.parseInt(reqTo))
-                listSouvenir1.remove(i);//????????????????????????
-                i--;
-            }      
-            mv.addObject("listSouvenir", listSouvenir1);
-            return mv;*/
